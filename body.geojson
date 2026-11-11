@@ -10,7 +10,10 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [17.2509, 49.5938]
+        "coordinates": [
+          17.2509,
+          49.5938
+        ]
       }
     },
     {
@@ -22,7 +25,25 @@
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [14.4378, 50.0755]
+        "coordinates": [
+          14.4378,
+          50.0755
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "popisek": "Moje rodné město",
+        "nazev": "Šumperk",
+        "id": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.9704134,
+          49.965346
+        ]
       }
     }
   ]
