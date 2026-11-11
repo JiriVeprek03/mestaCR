@@ -1,10 +1,13 @@
 // Inicializace mapy (výchozí pohled na střed ČR)
 const mapa = L.map('mapa').setView([49.8175, 15.473], 7);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
+// Světle šedá podkladová vrstva (CARTO Positron)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  subdomains: 'abcd',
+  maxZoom: 20,
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> přispěvatelé'
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> přispěvatelé ' +
+    '&copy; <a href="https://carto.com/attributions">CARTO</a>'
 }).addTo(mapa);
 
 // Ochrana proti vložení HTML z dat do popupu
