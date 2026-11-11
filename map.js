@@ -1,13 +1,49 @@
 // Inicializace mapy (výchozí pohled na střed ČR)
 const mapa = L.map('mapa').setView([49.8175, 15.473], 7);
 
-// Světle šedá podkladová vrstva (CARTO Positron)
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-  subdomains: 'abcd',
-  maxZoom: 20,
+const esriUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services';
+const esriAttr = 'Tiles &copy; Esri';
+
+// Světle šedý podklad + popisky (popisky jsou samostatná vrstva)
+const sedaPodklad = L.tileLayer(
+  `${esriUrl}/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}`,
+  {
+    maxZoom: 16,
+    attribution: `${esriAttr} &mdash; HERE, DeLorme, &copy; OpenStreetMap přispěvatelé`
+  }
+);
+const sedePopisky = L.tileLayer(
+  `${esriUrl}/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}`,
+  { maxZoom: 16 }
+);
+const seda = L.layerGroup([sedaPodklad, sedePopisky]);
+
+// Další podklady k vyzkoušení
+const ulice = L.tileLayer(
+  `${esriUrl}/World_Street_Map/MapServer/tile/{z}/{y}/{x}`,
+  { maxZoom: 18, attribution: esriAttr }
+);
+
+const topo = L.tileLayer(
+  `${esriUrl}/World_Topo_Map/MapServer/tile/{z}/{y}/{x}`,
+  { maxZoom: 18, attribution: esriAttr }
+);
+
+const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> přispěvatelé ' +
-    '&copy; <a href="https://carto.com/attributions">CARTO</a>'
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> přispěvatelé'
+});
+
+// Výchozí vrstva
+seda.addTo(mapa);
+
+// Přepínač podkladů v pravém horním rohu
+L.control.layers({
+  'Světle šedá (Esri)': seda,
+  'Ulice (Esri)': ulice,
+  'Topografická (Esri)': topo,
+  'OpenStreetMap': osm
 }).addTo(mapa);
 
 // Ochrana proti vložení HTML z dat do popupu
